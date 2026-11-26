@@ -1,9 +1,10 @@
 import { aim, bounceAngle, keepSteep } from '../physics/bounce';
 import { firstContact, newContact } from '../physics/contact';
 import { reflect } from '../physics/sweep';
-import { FIELD_H, FIELD_W, LAUNCH_OFFSET, MAX_SPEED, PADDLE_MAX_SPEED, SPEED_UP_PER_PADDLE_HIT, START_SPEED } from './config';
+import { FIELD_H, FIELD_W, LAUNCH_OFFSET, MAX_SPEED, PADDLE_MAX_SPEED, SPEED_UP_PER_PADDLE_HIT } from './config';
 import { brickPoints } from './score';
-import { Game } from './state';
+import { Ball, Game } from './state';
+import { loseBall, tickExtraBall } from './tray';
 
 /** What the player asks for in one step: where the paddle should go (field x, or null to stay) and whether to launch. */
 export interface StepInput { targetX: number | null; launch: boolean }
@@ -14,11 +15,19 @@ const contact = newContact();
 
 /** Advances the game by dt seconds. Call it with a fixed dt; the loop takes care of that. */
 export function step(g: Game, input: StepInput, dt: number) {
-  g.ball.prevX = g.ball.x; g.ball.prevY = g.ball.y; g.paddle.prevX = g.paddle.x;
+  for (const b of g.balls) { b.prevX = b.x; b.prevY = b.y; }
+  g.paddle.prevX = g.paddle.x;
   if (g.phase === 'won' || g.phase === 'over') return;
   movePaddle(g, input.targetX, dt);
   if (g.phase === 'serve') { holdOnPaddle(g); if (input.launch) launch(g); return; }
-  moveBall(g, dt);
+
+  for (let i = g.balls.length - 1; i >= 0; i--) {
+    const drained = moveBall(g, g.balls[i], dt);
+    if (g.phase !== 'play') return;
+    if (drained) { g.balls.splice(i, 1); g.events.push('drain'); }
+  }
+  if (g.balls.length === 0) { loseBall(g); return; }
+  tickExtraBall(g, dt);
 }
 
 function movePaddle(g: Game, targetX: number | null, dt: number) {
@@ -31,39 +40,40 @@ function movePaddle(g: Game, targetX: number | null, dt: number) {
 }
 
 function holdOnPaddle(g: Game) {
-  g.ball.x = g.paddle.x; g.ball.y = g.paddle.top - g.ball.r;
-  g.ball.prevX = g.ball.x; g.ball.prevY = g.ball.y;
+  const ball = g.balls[0];
+  ball.x = g.paddle.x; ball.y = g.paddle.top - ball.r;
+  ball.prevX = ball.x; ball.prevY = ball.y;
 }
 
 function launch(g: Game) {
   g.phase = 'play';
-  aim(g.ball, bounceAngle(g.paddle.vx < 0 ? -LAUNCH_OFFSET : LAUNCH_OFFSET, 0), g.speed);
+  aim(g.balls[0], bounceAngle(g.paddle.vx < 0 ? -LAUNCH_OFFSET : LAUNCH_OFFSET, 0), g.speed);
   g.events.push('launch');
 }
 
-function moveBall(g: Game, dt: number) {
-  const ball = g.ball;
+/** Moves one ball through everything it meets in dt. Returns true when it fell out at the bottom. */
+function moveBall(g: Game, ball: Ball, dt: number): boolean {
   let left = dt;
   for (let i = 0; i < MAX_CONTACTS_PER_STEP && left > 0; i++) {
     const dx = ball.vx * left, dy = ball.vy * left;
     firstContact(ball, dx, dy, g.bricks, g.paddle, contact);
-    if (contact.kind === 'none') { ball.x += dx; ball.y += dy; left = 0; break; }
+    if (contact.kind === 'none') { ball.x += dx; ball.y += dy; break; }
     ball.x += dx * contact.t; ball.y += dy * contact.t;
     left *= 1 - contact.t;
-    if (contact.kind === 'paddle') hitPaddle(g, contact.paddleOffset);
+    if (contact.kind === 'paddle') hitPaddle(g, ball, contact.paddleOffset);
     else { reflect(ball, contact.nx, contact.ny); keepSteep(ball); }
     if (contact.kind === 'wall') g.events.push('wall');
     if (contact.kind === 'brick') hitBrick(g, contact.brick);
-    if (g.phase !== 'play') return;
+    if (g.phase !== 'play') return false;
   }
   ball.x = Math.min(FIELD_W - ball.r, Math.max(ball.r, ball.x));
-  if (ball.y - ball.r > FIELD_H) loseBall(g);
+  return ball.y - ball.r > FIELD_H;
 }
 
-function hitPaddle(g: Game, offset: number) {
+function hitPaddle(g: Game, ball: Ball, offset: number) {
   g.combo = 0;
   g.speed = Math.min(MAX_SPEED, g.speed * SPEED_UP_PER_PADDLE_HIT);
-  aim(g.ball, bounceAngle(offset, g.paddle.vx), g.speed);
+  aim(ball, bounceAngle(offset, g.paddle.vx), g.speed);
   g.events.push('paddle');
 }
 
@@ -76,14 +86,4 @@ function hitBrick(g: Game, index: number) {
   g.combo += 1;
   g.score += brickPoints(g.combo);
   if (g.bricksLeft === 0) { g.phase = 'won'; g.events.push('won'); }
-}
-
-function loseBall(g: Game) {
-  g.lives -= 1;
-  g.combo = 0;
-  g.speed = START_SPEED;
-  if (g.lives <= 0) { g.phase = 'over'; g.events.push('over'); return; }
-  g.phase = 'serve';
-  g.events.push('lost');
-  holdOnPaddle(g);
 }

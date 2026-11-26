@@ -12,20 +12,36 @@
 
 <div class="app">
   <header class="top">
+    <button type="button" class="round compact-only" id="leaveCompact" data-label="back"><span aria-hidden="true">←</span></button>
     <h1 class="mark" aria-label="KrinkerLabs BreakWall">KRINKER<span class="labs">LABS</span><sup class="tm">™</sup><i class="dot" aria-hidden="true"></i><span class="product">BREAKWALL</span><span class="beta" data-title="beta">BETA</span></h1>
+    <button type="button" class="round compact-only" id="menuOpen" data-label="menu"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
   </header>
 
-  <section class="hud panel" aria-label="Score and lives">
-    <p class="stat"><span class="label" data-text="score">Score</span> <b id="score" aria-live="off">0</b></p>
-    <p class="stat"><span class="label" data-text="lives">Lives</span> <b id="lives" class="lives">3</b></p>
-    <div class="buttons">
-      <button type="button" class="pill" id="pause">Pause</button>
-      <button type="button" class="pill" id="sound" aria-pressed="true">Sound: on</button>
-    </div>
-  </section>
+  <aside class="left">
+    <section class="panel scorebox" aria-labelledby="scoreLabel">
+      <p class="label" id="scoreLabel" data-text="score">Score</p>
+      <p class="score" id="score">0</p>
+      <div class="tray-line">
+        <span class="label" data-text="tray">Balls</span>
+        <div class="tray" id="tray" role="img"><i id="slot0"></i><i id="slot1"></i><i id="slot2"></i><i id="slot3"></i><i id="slot4"></i></div>
+      </div>
+      <div class="extra" aria-hidden="true"><div class="extra-fill" id="extraFill"></div></div>
+      <p class="extra-label" id="extraLabel"></p>
+    </section>
+    <section class="panel board" id="boardPanel" aria-labelledby="boardTitle">
+      <h2 id="boardTitle"><span data-text="top10">Top 10</span> <small data-text="top10Kind">this browser</small></h2>
+      <ol id="board"></ol>
+    </section>
+    <section class="panel player" id="playerPanel">
+      <button type="button" class="who" id="who" data-title="changePlayer"></button>
+      <label class="auto"><input type="checkbox" id="autosave"> <span data-text="autosave">Autosave</span></label>
+      <button type="button" class="small" id="save" data-text="save">Save</button>
+      <p class="saved" id="savedNote" role="status" aria-live="polite"></p>
+    </section>
+  </aside>
 
   <main id="stage">
-    <canvas id="field" aria-label="Playing field"></canvas>
+    <canvas id="field"></canvas>
     <div class="message panel" id="message" role="status" aria-live="polite" hidden>
       <p class="message-title" id="messageTitle"></p>
       <p class="message-line" id="messageLine"></p>
@@ -33,13 +49,69 @@
     </div>
   </main>
 
-  <footer class="bottom">
-    <nav class="links">
-      <a class="pill" href="https://krinkerlabs.com" data-text="back">Back to krinkerlabs.com</a>
-      <a class="linkish" href="https://krinkerlabs.com/en/contact/?topic=breakwall" target="_blank" rel="noopener" data-text="bug">Found a bug? Tell us</a>
-    </nav>
-    <p class="legal" data-text="legal"></p>
+  <aside class="right">
+    <section class="panel help" id="helpPanel" aria-labelledby="helpTitle">
+      <h2 id="helpTitle" data-text="controls">Controls</h2>
+      <ul>
+        <li data-text="keysMove"></li>
+        <li data-text="keysLaunch"></li>
+        <li data-text="keysExtra"></li>
+      </ul>
+    </section>
+    <div class="tools">
+      <div class="tool">
+        <button type="button" class="round" id="pause" aria-pressed="false" aria-labelledby="pauseLabel"><svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor" aria-hidden="true"><rect x="6" y="5" width="4" height="14" rx="1.2"/><rect x="14" y="5" width="4" height="14" rx="1.2"/></svg></button>
+        <p class="tool-text"><b id="pauseLabel">Pause</b><small data-text="pauseHelp"></small></p>
+      </div>
+      <div class="tool">
+        <button type="button" class="round" id="sound" aria-pressed="true" aria-labelledby="soundLabel"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z" fill="currentColor"/><path class="waves" d="M15.5 9a4 4 0 0 1 0 6M18 6.5a7.5 7.5 0 0 1 0 11"/><path class="mute" d="M16 9.5l5 5M21 9.5l-5 5"/></svg></button>
+        <p class="tool-text"><b id="soundLabel">Sound</b><small data-text="soundHelp"></small></p>
+      </div>
+    </div>
+    <button type="button" class="back" id="leave" data-title="leaveHelp"><span aria-hidden="true">←</span> <span data-text="back">Back to krinkerlabs.com</span></button>
+  </aside>
+
+  <footer class="legal" id="legal">
+    <p><span data-text="legalFree"></span> <a class="linkish" href="https://krinkerlabs.com/en/contact/?topic=breakwall" target="_blank" rel="noopener" data-text="bug">Found a bug? Tell us</a></p>
+    <p data-text="legalCopy"></p>
+    <p data-text="legalMark"></p>
   </footer>
+</div>
+
+<div class="modal" id="whoDialog" hidden role="dialog" aria-labelledby="whoTitle">
+  <form class="panel card" id="whoForm">
+    <p class="card-mark" aria-hidden="true">KRINKER<span class="labs">LABS</span><i class="dot"></i><span class="product">BREAKWALL</span></p>
+    <h2 id="whoTitle" data-text="whoTitle">Who is playing?</h2>
+    <p data-text="whoText"></p>
+    <label class="field" for="nameIn" data-text="playAs">Play as</label>
+    <input id="nameIn" list="recentNames" maxlength="18" autocomplete="off" spellcheck="false" data-placeholder="nickname">
+    <datalist id="recentNames"></datalist>
+    <p class="err" id="whoErr" role="alert" hidden></p>
+    <button type="button" class="go gold" id="continueBtn" hidden></button>
+    <button type="submit" class="go" id="playBtn">New game</button>
+    <button type="button" class="later" id="skipName">Play without a name</button>
+    <p class="card-links"><a class="linkish" href="https://krinkerlabs.com" data-text="back"></a> · <a class="linkish" href="https://krinkerlabs.com/en/contact/?topic=breakwall" target="_blank" rel="noopener" data-text="bug"></a></p>
+  </form>
+</div>
+
+<div class="modal" id="leaveDialog" hidden role="dialog" aria-labelledby="leaveTitle">
+  <div class="panel card">
+    <h2 id="leaveTitle" data-text="leaveTitle">Leave the game?</h2>
+    <p id="leaveText"></p>
+    <button type="button" class="go" id="leaveFirst"></button>
+    <button type="button" class="later" id="leaveNow" data-text="leaveNow">Leave without saving</button>
+    <button type="button" class="later" id="leaveStay" data-text="stay">Stay in the game</button>
+  </div>
+</div>
+
+<div class="modal sheet" id="menuDialog" hidden role="dialog" aria-labelledby="menuTitle">
+  <div class="panel card menu">
+    <div class="menu-head"><h2 id="menuTitle" data-text="menu">Menu</h2><button type="button" class="small" id="menuClose" data-text="close">Close</button></div>
+    <div class="slot" id="slotPlayer"></div>
+    <div class="slot" id="slotBoard"></div>
+    <div class="slot" id="slotHelp"></div>
+    <div class="slot" id="slotLegal"></div>
+  </div>
 </div>
 
 <script type="module" src="app.js"></script>

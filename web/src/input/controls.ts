@@ -11,6 +11,10 @@ export interface ControlHooks {
   toFieldX(clientX: number): number;
   onLaunchGesture(): void;
   onPause(): void;
+  onSound(): void;
+  onLeave(): void;
+  /** True while a window (who is playing, leave) is open: the keys then belong to it. */
+  blocked(): boolean;
 }
 
 /** Mouse, finger and keyboard in one place. The game reads one StepInput per fixed step. */
@@ -34,12 +38,16 @@ export class Controls {
   }
 
   private key(e: KeyboardEvent, down: boolean) {
-    if (e.target instanceof HTMLElement && e.target.closest('button, a')) return;
-    const k = e.key;
+    const k = e.key, on = e.target instanceof HTMLElement ? e.target : null;
+    if (this.hooks.blocked() || on?.closest('input, textarea')) { this.held.left = this.held.right = false; this.keyDir = 0; return; }
+    // Space and Enter on a focused button press that button, not the game
+    if ((k === ' ' || k === 'Enter') && on?.closest('button, a')) return;
     if (k === 'ArrowLeft' || k === 'a' || k === 'A') this.held.left = down;
     else if (k === 'ArrowRight' || k === 'd' || k === 'D') this.held.right = down;
     else if (down && (k === ' ' || k === 'Enter')) { this.launchWanted = true; this.hooks.onLaunchGesture(); }
-    else if (down && (k === 'p' || k === 'P' || k === 'Escape')) this.hooks.onPause();
+    else if (down && (k === 'p' || k === 'P')) this.hooks.onPause();
+    else if (down && (k === 'm' || k === 'M')) this.hooks.onSound();
+    else if (down && k === 'Escape') this.hooks.onLeave();
     else return;
     e.preventDefault();
     this.keyDir = (this.held.right ? 1 : 0) - (this.held.left ? 1 : 0);

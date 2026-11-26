@@ -2,14 +2,14 @@
   {
     "name": "First wall",
     "rows": [
-      ".............",
-      "aaaaaaaaaaaaa",
-      "bbbbbbbbbbbbb",
-      "cc.ccccccc.cc",
-      "ddd.ddddd.ddd",
-      "eeee.eee.eeee",
-      "fffff.f.fffff",
-      "gggggg.gggggg"
+      ".......",
+      "aaaaaaa",
+      "bbbbbbb",
+      "ccc.ccc",
+      "dd.d.dd",
+      "eeeeeee",
+      "f.fff.f",
+      "ggggggg"
     ]
   }
 ]
