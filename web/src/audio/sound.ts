@@ -4,11 +4,14 @@ import { GameEvent } from '../rules/state';
 
 interface Tone { freq: number; to: number; length: number; wave: OscillatorType; volume: number }
 
-const TONES: Record<GameEvent, Tone> = {
+/** Events without a tone (a ball put on the paddle) play nothing. */
+const TONES: Partial<Record<GameEvent, Tone>> = {
   launch: { freq: 520, to: 780, length: 0.09, wave: 'triangle', volume: 0.18 },
   wall: { freq: 300, to: 280, length: 0.04, wave: 'square', volume: 0.06 },
   paddle: { freq: 220, to: 330, length: 0.07, wave: 'triangle', volume: 0.2 },
   brick: { freq: 660, to: 620, length: 0.06, wave: 'square', volume: 0.08 },
+  drain: { freq: 300, to: 150, length: 0.25, wave: 'triangle', volume: 0.1 },
+  extra: { freq: 784, to: 1568, length: 0.35, wave: 'triangle', volume: 0.16 },
   lost: { freq: 330, to: 110, length: 0.45, wave: 'sawtooth', volume: 0.12 },
   won: { freq: 523, to: 1046, length: 0.6, wave: 'triangle', volume: 0.2 },
   over: { freq: 262, to: 98, length: 0.8, wave: 'sawtooth', volume: 0.12 },
@@ -30,7 +33,9 @@ export class Sound {
   play(event: GameEvent, combo: number) {
     const ctx = this.ctx;
     if (!this.enabled || !ctx || ctx.state !== 'running') return;
-    const tone = TONES[event], pitch = event === 'brick' ? comboPitch(combo) : 1, now = ctx.currentTime;
+    const tone = TONES[event];
+    if (!tone) return;
+    const pitch = event === 'brick' ? comboPitch(combo) : 1, now = ctx.currentTime;
     const osc = ctx.createOscillator(), gain = ctx.createGain();
     osc.type = tone.wave;
     osc.frequency.setValueAtTime(tone.freq * pitch, now);
