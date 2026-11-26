@@ -2,6 +2,7 @@ import levels from '../data/levels.json';
 import { Session } from './app/session';
 import { Sound } from './audio/sound';
 import { Controls, screenToField } from './input/controls';
+import { MouseLock } from './input/mouseLock';
 import { parseLevel } from './levels/level';
 import { startLens } from './render/lens';
 import { Renderer } from './render/renderer';
@@ -43,24 +44,37 @@ const leave = () => { window.location.href = SITE_URL; };
 const who = new WhoDialog(session, store, t, (n) => hud.format(n), { onStart: start, onPlayer: showPlayer });
 const leaveDialog = new LeaveDialog(session, who, t, leave);
 
+// ---- input: while a ball is served or in play, the mouse is held by the paddle; a pause, a window or the end of the game frees it
 const stage = byId('stage');
-const controls = new Controls(stage, {
+const active = () => !session.ended && !anyDialogOpen();
+const mouseLock = new MouseLock(stage, () => { if (active() && !paused) setPaused(true); });
+let usesTouch = false;
+stage.addEventListener('pointerdown', (e) => { usesTouch = e.pointerType !== 'mouse'; }, { capture: true });
+const holdMouse = () => { if (active() && !paused && !usesTouch) mouseLock.lock(); };
+const controls = new Controls(stage, mouseLock, {
   toFieldX: (x) => { const b = renderer.fieldBox; return screenToField(x, b.left, b.scale); },
-  onLaunchGesture: () => { sound.unlock(); if (paused) setPaused(false); },
+  scale: () => renderer.fieldBox.scale,
+  onLaunchGesture: () => { sound.unlock(); holdMouse(); },
   onPause: () => setPaused(!paused),
   onSound: toggleSound,
-  onLeave: () => leaveDialog.open(),
+  onLeave: openLeave,
   blocked: anyDialogOpen,
+  paused: () => paused,
 });
+
+function openLeave() { mouseLock.release(); leaveDialog.open(); }
+function openWho(then: (() => void) | null = null) { mouseLock.release(); who.open('name', then); }
 
 function start(kind: 'new' | 'continue') {
   if (kind === 'continue') session.continueSaved(); else session.startNew();
-  paused = false; loop.reset(); controls.dropLaunch(); hud.reset(); showBoard();
+  paused = false; loop.reset(); controls.dropLaunch(); controls.resetPointer(); hud.reset(); showBoard();
 }
 
+/** A pause frees the mouse; going on takes it again (the key press that ends the pause lets the browser do that). */
 function setPaused(value: boolean) {
   paused = value && !session.ended;
-  loop.reset(); controls.dropLaunch();
+  loop.reset(); controls.dropLaunch(); controls.resetPointer();
+  if (paused) mouseLock.release(); else holdMouse();
 }
 
 // ---- left panel: the player, autosave, save, the top 10
@@ -77,9 +91,9 @@ function showBoard() { renderBoard(byId('board'), boardRows(session.top(), sessi
 const autosaveBox = byId<HTMLInputElement>('autosave');
 autosaveBox.checked = session.autosave;
 autosaveBox.addEventListener('change', () => session.setAutosave(autosaveBox.checked));
-byId('who').addEventListener('click', () => who.open('name'));
+byId('who').addEventListener('click', () => openWho());
 byId('save').addEventListener('click', () => {
-  if (!session.player) { who.open('name', () => note(session.saveNow() ? t.saved : t.saveFailed)); return; }
+  if (!session.player) { openWho(() => note(session.saveNow() ? t.saved : t.saveFailed)); return; }
   note(session.saveNow() ? t.saved : t.saveFailed);
 });
 
@@ -89,8 +103,8 @@ function showSound() { byId('soundLabel').textContent = sound.enabled ? t.soundO
 function toggleSound() { sound.enabled = !sound.enabled; writeFlag(store, 'sound', sound.enabled); sound.unlock(); showSound(); }
 soundButton.addEventListener('click', toggleSound);
 byId('pause').addEventListener('click', () => setPaused(!paused));
-byId('leave').addEventListener('click', () => leaveDialog.open());
-byId('leaveCompact').addEventListener('click', () => leaveDialog.open());
+byId('leave').addEventListener('click', openLeave);
+byId('leaveCompact').addEventListener('click', openLeave);
 byId('again').addEventListener('click', () => { sound.unlock(); start('new'); });
 document.addEventListener('visibilitychange', () => { if (document.hidden && session.game.phase === 'play') setPaused(true); });
 
@@ -100,7 +114,7 @@ const toMenu = mover([[byId('playerPanel'), byId('slotPlayer')], [byId('boardPan
 const compactQuery = matchMedia(COMPACT_QUERY);
 function applyLayout() { document.body.classList.toggle('compact', compactQuery.matches); toMenu(compactQuery.matches); if (!compactQuery.matches) menu.hidden = true; }
 compactQuery.addEventListener('change', applyLayout);
-byId('menuOpen').addEventListener('click', () => { menu.hidden = false; });
+byId('menuOpen').addEventListener('click', () => { mouseLock.release(); menu.hidden = false; });
 byId('menuClose').addEventListener('click', () => { menu.hidden = true; });
 menu.addEventListener('keydown', (e) => { if (e.key === 'Escape') menu.hidden = true; });
 
@@ -115,7 +129,7 @@ function frame(now: number) {
   if (game.events.length) {
     session.handle(game.events);
     for (const e of game.events) sound.play(e, game.combo);
-    if (game.events.includes('won') || game.events.includes('over')) showBoard();
+    if (game.events.includes('won') || game.events.includes('over')) { mouseLock.release(); showBoard(); }
     game.events.length = 0;
   }
   renderer.draw(session.game, blend, now / 1000);

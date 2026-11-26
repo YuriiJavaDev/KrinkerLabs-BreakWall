@@ -6,8 +6,10 @@
 
 ## How to play
 
-- Move the paddle with the mouse, a finger or the ← → (A D) keys.
-- Click, tap or press Space to launch the ball. P or Esc pauses.
+- Move the paddle with the mouse, a finger, ← → (A D) or the left and right Shift keys.
+- While you play, the mouse is held by the paddle (the browser's pointer lock): the cursor is hidden and cannot leave the window. P or Space pauses and frees the mouse; the same key goes on and takes it again. Esc frees the mouse and pauses; Esc again leaves the game.
+- Enter or a click on the table launches the ball. M turns the sound on or off.
+- On a touch screen there is no keyboard, so a Pause button is shown there; a computer with a mouse does not show it.
 - Where the ball meets the paddle sets its angle: the centre sends it straight up, the edges up to 60° to the side. A moving paddle adds a little spin.
 - Every brick broken in a row without touching the paddle is worth one step more: 1 000, 2 000, 3 000 … up to 10 000.
 - The tray holds up to five balls; a game starts with three. Every minute a ball stays in play puts one more ball into the tray, while it has room. Up to three balls can be on the table at once (multiball); that does not take balls from the tray. Losing the last ball on the table takes one from the tray; an empty tray ends the game.

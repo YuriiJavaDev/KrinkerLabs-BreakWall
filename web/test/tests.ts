@@ -2,6 +2,7 @@ import levels from '../data/levels.json';
 import { Session } from '../src/app/session';
 import { comboPitch } from '../src/audio/sound';
 import { screenToField } from '../src/input/controls';
+import { keyAction, movedTarget } from '../src/input/keys';
 import { LevelError, parseLevel } from '../src/levels/level';
 import { keepSteep } from '../src/physics/bounce';
 import { newHit, reflect, sweepCircleBox } from '../src/physics/sweep';
@@ -20,6 +21,7 @@ import { loadPlayer, recentPlayers, rememberPlayer } from '../src/storage/player
 import { decode, readSave, restore, snapshot, writeSave } from '../src/storage/save';
 import { boardRows } from '../src/ui/board';
 import { messageFor, meterPercent } from '../src/ui/hud';
+import { isCompact } from '../src/ui/layout';
 import { leaveFirst } from '../src/ui/leave';
 import { fill, pickLanguage, TEXTS } from '../src/ui/texts';
 
@@ -320,6 +322,20 @@ that(screenToField(400, 390, 1) === 10 && screenToField(400, 0, 0.5) === 800, 's
 that(SPECTRUM[0] === SPECTRUM[SPECTRUM.length - 1], 'the colours of the rails end where they begin, so the flow has no seam');
 that(near(spectrumAngle(SPECTRUM_SECONDS / 4, false), Math.PI / 2) && near(spectrumAngle(SPECTRUM_SECONDS * 3, false), 0) && spectrumAngle(5, true) === 0,
   'the colours turn once in their period, and stand still when motion is reduced');
+
+// --- keys: by their place on the keyboard, so any layout works ---
+that(keyAction('ShiftLeft') === 'left' && keyAction('ShiftRight') === 'right', 'the left Shift moves the paddle left, the right Shift right');
+that(keyAction('ArrowLeft') === 'left' && keyAction('KeyA') === 'left' && keyAction('ArrowRight') === 'right' && keyAction('KeyD') === 'right', 'arrows and A D move the paddle too');
+that(keyAction('Enter') === 'launch' && keyAction('NumpadEnter') === 'launch', 'Enter launches the ball');
+that(keyAction('Space') === 'pause' && keyAction('KeyP') === 'pause', 'Space and P pause, and do not launch');
+that(keyAction('KeyM') === 'sound' && keyAction('Escape') === 'leave' && keyAction('KeyQ') === null, 'M is the sound, Esc is leaving, other keys do nothing');
+// a held mouse moves the paddle by its own movement: 30 screen pixels at half scale are 60 field units
+that(movedTarget(400, 30, 0.5, 124, 656) === 460, 'a held mouse moves the paddle by its movement, in field units');
+that(movedTarget(640, 300, 0.5, 124, 656) === 656 && movedTarget(150, -300, 0.5, 124, 656) === 124, 'a held mouse cannot push the paddle past the walls, so a move back is felt at once');
+
+// --- which layout: side panels only where the table keeps a good size ---
+that(!isCompact(1440, 900) && !isCompact(1280, 720) && !isCompact(1080, 810), 'computers and tablets held sideways get the side panels');
+that(isCompact(390, 844) && isCompact(915, 412) && isCompact(810, 1080) && isCompact(1024, 1366), 'phones, a phone held sideways and upright tablets get the phone layout');
 
 // --- messages, texts, storage ---
 { const g = createGame(parseLevel(ONE_BRICK));
