@@ -1,0 +1,13 @@
+{
+  "name": "krinkerlabs-breakwall-web",
+  "version": "0.1.0",
+  "private": true,
+  "license": "UNLICENSED",
+  "type": "module",
+  "scripts": {
+    "build": "node build.mjs",
+    "test": "node build.mjs --test && node dist/tests.js",
+    "check": "tsc --noEmit -p ."
+  },
+  "devDependencies": { "esbuild": "0.24.0" }
+}
