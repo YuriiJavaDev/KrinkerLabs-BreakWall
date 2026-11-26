@@ -52,14 +52,19 @@
   <aside class="right">
     <section class="panel help" id="helpPanel" aria-labelledby="helpTitle">
       <h2 id="helpTitle" data-text="controls">Controls</h2>
-      <ul>
-        <li data-text="keysMove"></li>
-        <li data-text="keysLaunch"></li>
-        <li data-text="keysExtra"></li>
-      </ul>
+      <dl class="keys">
+        <div><dt><kbd>←</kbd><kbd>→</kbd> <kbd>A</kbd><kbd>D</kbd> <kbd data-text="keyShift">Shift</kbd></dt><dd data-text="keysPaddle"></dd></div>
+        <div class="mouse-only"><dt><kbd data-text="keyMouse">Mouse</kbd></dt><dd data-text="keysMouse"></dd></div>
+        <div><dt><kbd>Enter</kbd> <kbd data-text="keyClick">click</kbd></dt><dd data-text="keysLaunch"></dd></div>
+        <div><dt><kbd>P</kbd> <kbd data-text="keySpace">Space</kbd></dt><dd data-text="keysPause"></dd></div>
+        <div><dt><kbd>M</kbd></dt><dd data-text="keysSound"></dd></div>
+        <div><dt><kbd>Esc</kbd></dt><dd data-text="keysEsc"></dd></div>
+        <div class="touch-only"><dt><kbd data-text="keyFinger">Finger</kbd></dt><dd data-text="keysFinger"></dd></div>
+      </dl>
+      <p class="note" data-text="keysExtra"></p>
     </section>
     <div class="tools">
-      <div class="tool">
+      <div class="tool touch-only">
         <button type="button" class="round" id="pause" aria-pressed="false" aria-labelledby="pauseLabel"><svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor" aria-hidden="true"><rect x="6" y="5" width="4" height="14" rx="1.2"/><rect x="14" y="5" width="4" height="14" rx="1.2"/></svg></button>
         <p class="tool-text"><b id="pauseLabel">Pause</b><small data-text="pauseHelp"></small></p>
       </div>
