@@ -1,4 +1,4 @@
-import { FIELD_W, PADDLE_W } from '../rules/config';
+import { FIELD_W } from '../rules/config';
 import { StepInput } from '../rules/step';
 import { keyAction, movedTarget } from './keys';
 import { MouseLock } from './mouseLock';
@@ -9,12 +9,12 @@ export const KEY_SPEED = 1400;
 /** Field x under a screen x, for a field drawn from `left` at `scale` screen pixels per field unit. */
 export const screenToField = (clientX: number, left: number, scale: number) => (clientX - left) / scale;
 
-const MIN_X = PADDLE_W / 2, MAX_X = FIELD_W - PADDLE_W / 2;
-
 export interface ControlHooks {
   /** Screen x to field x, and screen pixels per field unit, from the renderer. */
   toFieldX(clientX: number): number;
   scale(): number;
+  /** Half the paddle's width now, so the held mouse stops where the paddle stops. */
+  paddleHalf(): number;
   /** A click or tap on the table that may launch the ball. */
   onLaunchGesture(): void;
   onPause(): void;
@@ -52,7 +52,8 @@ export class Controls {
 
   private move(e: PointerEvent) {
     if (this.lock.locked) {
-      this.heldX = movedTarget(this.heldX ?? this.lastPaddleX, e.movementX, this.hooks.scale(), MIN_X, MAX_X);
+      const half = this.hooks.paddleHalf();
+      this.heldX = movedTarget(this.heldX ?? this.lastPaddleX, e.movementX, this.hooks.scale(), half, FIELD_W - half);
       return;
     }
     if (!this.hooks.paused()) this.pointerX = this.hooks.toFieldX(e.clientX);

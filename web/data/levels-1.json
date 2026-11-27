@@ -1,0 +1,273 @@
+[
+ {
+  "id": "1-1",
+  "tier": 1,
+  "name": {
+   "en": "First wall",
+   "ru": "Первая стена"
+  },
+  "intro": {
+   "en": "A paddle, a ball and the first wall. Break every brick",
+   "ru": "Ракетка, мяч и первая стена. Разбейте все кирпичи"
+  },
+  "par": 120,
+  "blocks": [
+   {
+    "grid": "rect",
+    "cell": [
+     108,
+     52
+    ],
+    "top": 182,
+    "rows": [
+     "a a a a a a a",
+     "b b b b b b b",
+     "c c c . c c c",
+     "d d . d . d d",
+     "e e e e e e e",
+     "f . f f f . f",
+     "g g g g g g g"
+    ]
+   }
+  ]
+ },
+ {
+  "id": "1-2",
+  "tier": 1,
+  "name": {
+   "en": "Steps",
+   "ru": "Ступени"
+  },
+  "intro": {
+   "en": "New: bonus bricks. Catch the capsule and the paddle grows",
+   "ru": "Новое: кирпичи с бонусом. Поймайте капсулу — ракетка станет шире"
+  },
+  "par": 120,
+  "blocks": [
+   {
+    "grid": "rect",
+    "cell": [
+     108,
+     48
+    ],
+    "top": 160,
+    "rows": [
+     ". . . a . . .",
+     ". . b b b . .",
+     ". c c c+W c c .",
+     "d d d d d d d",
+     "e e e e e e e",
+     "f+W f f f f f f+W"
+    ]
+   }
+  ]
+ },
+ {
+  "id": "1-3",
+  "tier": 1,
+  "name": {
+   "en": "Windows",
+   "ru": "Окна"
+  },
+  "intro": {
+   "en": "New: the Slow bonus — the ball flies slower",
+   "ru": "Новое: бонус «Замедление» — мяч летит медленнее"
+  },
+  "par": 130,
+  "blocks": [
+   {
+    "grid": "rect",
+    "cell": [
+     84,
+     84
+    ],
+    "top": 140,
+    "rows": [
+     "a a a a a a a a a",
+     "b . . b b+S b . . b",
+     "b . . b b b . . b",
+     "c c c c c c c c c",
+     "d d . . d+W . . d d",
+     "d d . . d . . d d",
+     "e e e e+S e e e e e"
+    ]
+   }
+  ]
+ },
+ {
+  "id": "1-4",
+  "tier": 1,
+  "name": {
+   "en": "Doubles",
+   "ru": "Двойные"
+  },
+  "intro": {
+   "en": "New: strong bricks. The number shows the hits left",
+   "ru": "Новое: прочные кирпичи. Цифра показывает, сколько ударов осталось"
+  },
+  "par": 150,
+  "blocks": [
+   {
+    "grid": "rect",
+    "cell": [
+     108,
+     52
+    ],
+    "top": 150,
+    "rows": [
+     "a2 b a2 b a2 b a2",
+     "b a2 b a2 b a2 b",
+     "c2 d c2 d+S c2 d c2",
+     "d c2 d c2 d c2 d",
+     "e2 f e2 f e2 f e2",
+     "f+W e2 f e2 f e2 f+W"
+    ]
+   }
+  ]
+ },
+ {
+  "id": "1-5",
+  "tier": 1,
+  "name": {
+   "en": "Honeycomb",
+   "ru": "Соты"
+  },
+  "intro": {
+   "en": "New: hexagon bricks and the Second ball bonus",
+   "ru": "Новое: шестигранные кирпичи и бонус «Второй мяч»"
+  },
+  "par": 150,
+  "blocks": [
+   {
+    "grid": "hex",
+    "cell": [
+     100
+    ],
+    "top": 140,
+    "rows": [
+     ". a a a a a .",
+     "b b b+B b b b .",
+     "c c c c c c c",
+     "d d d d d d .",
+     ". e e+B e e e .",
+     "f f f f f f ."
+    ]
+   }
+  ]
+ },
+ {
+  "id": "1-6",
+  "tier": 1,
+  "name": {
+   "en": "Columns",
+   "ru": "Колонны"
+  },
+  "intro": {
+   "en": "New: steel bricks. They never break and are not needed to clear the level",
+   "ru": "Новое: стальные кирпичи. Их не разбить, и они не нужны для прохождения"
+  },
+  "par": 160,
+  "blocks": [
+   {
+    "grid": "rect",
+    "cell": [
+     108,
+     52
+    ],
+    "top": 130,
+    "rows": [
+     "# a a # a a #",
+     "# b b # b b #",
+     "# c+B c # c c+W #",
+     "# d d # d d #",
+     "# e e # e e #",
+     "# f f+S # f f #",
+     "# . . # . . #"
+    ]
+   }
+  ]
+ },
+ {
+  "id": "1-7",
+  "tier": 1,
+  "name": {
+   "en": "Mosaic",
+   "ru": "Мозаика"
+  },
+  "intro": {
+   "en": "New: triangles and explosive bricks that take their neighbours with them",
+   "ru": "Новое: треугольники и взрывные кирпичи — они уносят соседей"
+  },
+  "par": 150,
+  "blocks": [
+   {
+    "grid": "tri",
+    "cell": [
+     110
+    ],
+    "top": 140,
+    "rows": [
+     "a a a a a a x a a a a a a",
+     "b b b x b b b b b x b b b",
+     "c c c c c c c+S c c c c c c",
+     "d x d d d d d d d d d x d",
+     "e e e e e+B e e e e e e e e"
+    ]
+   }
+  ]
+ },
+ {
+  "id": "1-8",
+  "tier": 1,
+  "name": {
+   "en": "Laboratory exam",
+   "ru": "Экзамен лаборатории"
+  },
+  "intro": {
+   "en": "All together: shapes, strong and explosive bricks, and the Extra ball bonus",
+   "ru": "Всё вместе: формы, прочные, взрывные и бонус «Лишний мяч»"
+  },
+  "par": 200,
+  "blocks": [
+   {
+    "grid": "hex",
+    "cell": [
+     100
+    ],
+    "top": 110,
+    "rows": [
+     "a a+E a a a+W a a"
+    ]
+   },
+   {
+    "grid": "rect",
+    "cell": [
+     64,
+     40
+    ],
+    "top": 236,
+    "rows": [
+     "h2 h2 . . . . h h .",
+     "h2 h2 . . . h h . .",
+     "h2 h2 . . h h . . .",
+     "h2 h2 h h h+S . . . .",
+     "h2 h2 . . h h . . .",
+     "h2 h2 . . . h h . .",
+     "h2 h2 . . . . h h+B ."
+    ]
+   },
+   {
+    "grid": "tri",
+    "cell": [
+     110
+    ],
+    "top": 540,
+    "rows": [
+     "b b b+S b b b x b b b b+B b b",
+     "c c c c c c c c c c c c c"
+    ]
+   }
+  ],
+  "startSpeed": 680
+ }
+]

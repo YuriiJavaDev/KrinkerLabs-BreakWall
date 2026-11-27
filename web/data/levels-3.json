@@ -1,0 +1,356 @@
+[
+ {
+  "id": "3-1",
+  "tier": 3,
+  "name": {
+   "en": "Core ring",
+   "ru": "Ядро"
+  },
+  "intro": {
+   "en": "New: the comet ball burns straight through the wall, but not for long",
+   "ru": "Новое: мяч-комета прожигает стену насквозь, но живёт недолго"
+  },
+  "par": 220,
+  "blocks": [
+   {
+    "grid": "hex",
+    "cell": [
+     100
+    ],
+    "top": 110,
+    "rows": [
+     ". m3 m3 m3 m3 m3 .",
+     "m3 a a+C a a m3 .",
+     "m3 a . . . a m3",
+     "m3 a . . a m3 .",
+     "m3 a . . . a m3",
+     "m3 a a+B a a m3 .",
+     ". m3 m3 m3+C m3 m3 ."
+    ]
+   }
+  ]
+ },
+ {
+  "id": "3-2",
+  "tier": 3,
+  "name": {
+   "en": "Portals",
+   "ru": "Порталы"
+  },
+  "intro": {
+   "en": "New: portals. The ball goes into one and comes out of the other",
+   "ru": "Новое: порталы. Мяч входит в один и выходит из другого"
+  },
+  "par": 210,
+  "blocks": [
+   {
+    "grid": "tri",
+    "cell": [
+     110
+    ],
+    "top": 130,
+    "rows": [
+     "a a a a a+L a a a a a a a a",
+     "b b b+N b b b b b b b b b b",
+     "c c c c c c c c+L c c c c c"
+    ]
+   },
+   {
+    "grid": "tri",
+    "cell": [
+     110
+    ],
+    "top": 480,
+    "rows": [
+     "d d+B d d d d d d d d d+B d d",
+     "e e e e e e+N e e e e e e e"
+    ]
+   }
+  ],
+  "objects": [
+   {
+    "type": "portal",
+    "ax": 100,
+    "ay": 780,
+    "bx": 680,
+    "by": 62,
+    "r": 38
+   },
+   {
+    "type": "portal",
+    "ax": 680,
+    "ay": 780,
+    "bx": 100,
+    "by": 62,
+    "r": 38
+   }
+  ]
+ },
+ {
+  "id": "3-3",
+  "tier": 3,
+  "name": {
+   "en": "Regrowth",
+   "ru": "Регенерация"
+  },
+  "intro": {
+   "en": "New: regrowing bricks come back after 12 seconds — break them in runs",
+   "ru": "Новое: отрастающие кирпичи возвращаются через 12 секунд — бейте сериями"
+  },
+  "par": 220,
+  "blocks": [
+   {
+    "grid": "rhomb",
+    "cell": [
+     104,
+     72
+    ],
+    "top": 140,
+    "rows": [
+     "a a+M a a a a+M a",
+     "r r r r r r r",
+     "b b b+F b b b b",
+     "r r r r r r r",
+     "c c+M c c c c+S c",
+     "r r r r r r r"
+    ]
+   }
+  ]
+ },
+ {
+  "id": "3-4",
+  "tier": 3,
+  "name": {
+   "en": "Turbine",
+   "ru": "Турбина"
+  },
+  "intro": {
+   "en": "New: turning bars and shields turned sideways — the weak side faces left or right",
+   "ru": "Новое: вращающиеся планки и щиты с повёрнутой бронёй — слабое место сбоку"
+  },
+  "par": 220,
+  "blocks": [
+   {
+    "grid": "rect",
+    "cell": [
+     64,
+     40
+    ],
+    "top": 120,
+    "rows": [
+     "a a s< a a a+C a a s> a a",
+     "b b b b+S b b b b+S b b b",
+     "c s> c c c s c c c s< c",
+     "d d d+C d d d d d d+B d d",
+     "e e e e e e e e e e e"
+    ]
+   }
+  ],
+  "objects": [
+   {
+    "type": "spinner",
+    "x": 230,
+    "y": 600,
+    "length": 220,
+    "width": 20,
+    "speed": 0.9
+   },
+   {
+    "type": "spinner",
+    "x": 550,
+    "y": 600,
+    "length": 220,
+    "width": 20,
+    "speed": -0.9,
+    "angle": 1.57
+   }
+  ]
+ },
+ {
+  "id": "3-5",
+  "tier": 3,
+  "name": {
+   "en": "Meteors",
+   "ru": "Метеоры"
+  },
+  "intro": {
+   "en": "New: the Shield bonus saves one ball at the bottom. The wall creeps faster",
+   "ru": "Новое: бонус «Щит» спасает один мяч внизу. Стена ползёт быстрее"
+  },
+  "par": 230,
+  "blocks": [
+   {
+    "grid": "hex",
+    "cell": [
+     100
+    ],
+    "top": 120,
+    "rows": [
+     "m3 m3 m3+D m3 m3 m3 m3",
+     "m3 m3 m3 m3+T m3 m3 .",
+     "m3+W m3 m3 m3 m3 m3+D m3",
+     "m3 m3 m3+T m3 m3 m3 ."
+    ]
+   }
+  ],
+  "descend": 20
+ },
+ {
+  "id": "3-6",
+  "tier": 3,
+  "name": {
+   "en": "Ghosts",
+   "ru": "Невидимки"
+  },
+  "intro": {
+   "en": "New: invisible bricks show only for a moment after a hit",
+   "ru": "Новое: невидимые кирпичи видны лишь мгновение после удара"
+  },
+  "par": 220,
+  "blocks": [
+   {
+    "grid": "tri",
+    "cell": [
+     110
+    ],
+    "top": 130,
+    "rows": [
+     "a i a i a i a+L i a i a i a",
+     "i b i b+N i b i b i b i b i",
+     "c i c i c i c i c i c+L i c",
+     "i d i d i d+B i d i d i d i",
+     "e i e i e i e i e i e i e"
+    ]
+   }
+  ]
+ },
+ {
+  "id": "3-7",
+  "tier": 3,
+  "name": {
+   "en": "Chain reaction",
+   "ru": "Цепная реакция"
+  },
+  "intro": {
+   "en": "New: the Bomb bonus — the next hit blows up part of the wall",
+   "ru": "Новое: бонус «Бомба» — следующий удар взрывает часть стены"
+  },
+  "par": 240,
+  "blocks": [
+   {
+    "grid": "hex",
+    "cell": [
+     100
+    ],
+    "top": 110,
+    "rows": [
+     "x a3 x a3+O x a3 x",
+     "a3 s a3+T s a3 s .",
+     "x b3 x b3 x b3+M x"
+    ]
+   },
+   {
+    "grid": "rect",
+    "cell": [
+     108,
+     44
+    ],
+    "top": 400,
+    "rows": [
+     "c3 x c3+F s c3 x c3",
+     "d d+O d x d d+T d",
+     "s e3 e3 e3 e3 e3 s"
+    ]
+   }
+  ],
+  "descend": 30
+ },
+ {
+  "id": "3-8",
+  "tier": 3,
+  "name": {
+   "en": "Heart of the reactor",
+   "ru": "Сердце реактора"
+  },
+  "intro": {
+   "en": "The finale: the core (20 hits) behind moving steel shields",
+   "ru": "Финал игры: ядро (20 ударов) под движущимися стальными щитами"
+  },
+  "par": 300,
+  "blocks": [
+   {
+    "grid": "rhomb",
+    "cell": [
+     104,
+     72
+    ],
+    "top": 100,
+    "rows": [
+     "a a+M a a+T a a+L a",
+     "b b b b+W b b b",
+     "c+C c c c c c+B c"
+    ]
+   },
+   {
+    "grid": "rect",
+    "cell": [
+     90,
+     30
+    ],
+    "top": 284,
+    "rows": [
+     "# # #"
+    ]
+   },
+   {
+    "grid": "hex",
+    "cell": [
+     180
+    ],
+    "top": 330,
+    "rows": [
+     "@20"
+    ]
+   },
+   {
+    "grid": "rect",
+    "cell": [
+     90,
+     30
+    ],
+    "top": 562,
+    "rows": [
+     "# # #"
+    ]
+   },
+   {
+    "grid": "rect",
+    "cell": [
+     108,
+     44
+    ],
+    "top": 630,
+    "rows": [
+     "d s d+O d d s d",
+     "e e+M e+T e e+D e e"
+    ]
+   }
+  ],
+  "moving": [
+   {
+    "block": 1,
+    "row": 0,
+    "amp": 230,
+    "speed": 0.8
+   },
+   {
+    "block": 3,
+    "row": 0,
+    "amp": 230,
+    "speed": 0.8,
+    "phase": 3.14
+   }
+  ],
+  "descend": 45
+ }
+]

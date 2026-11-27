@@ -1,0 +1,361 @@
+[
+ {
+  "id": "2-1",
+  "tier": 2,
+  "name": {
+   "en": "Evening block",
+   "ru": "Вечерний квартал"
+  },
+  "intro": {
+   "en": "New: armoured bricks (3 hits), shape-changing bricks and the laser",
+   "ru": "Новое: бронированные кирпичи (3 удара), меняющие форму кирпичи и лазер"
+  },
+  "par": 190,
+  "blocks": [
+   {
+    "grid": "rect",
+    "cell": [
+     108,
+     52
+    ],
+    "top": 140,
+    "rows": [
+     ". a3 a3 . c3 c3 .",
+     ". a m3 . c m3 .",
+     "e a a+L . c c+W e",
+     "e m3 a . c m3 e",
+     "e a a . c c e",
+     "e3 e3 e3+B . e3 e3 e3"
+    ]
+   }
+  ]
+ },
+ {
+  "id": "2-2",
+  "tier": 2,
+  "name": {
+   "en": "Overpass",
+   "ru": "Эстакада"
+  },
+  "intro": {
+   "en": "New: moving rows and parallelogram bricks",
+   "ru": "Новое: движущиеся ряды и кирпичи-параллелограммы"
+  },
+  "par": 180,
+  "blocks": [
+   {
+    "grid": "para",
+    "cell": [
+     100,
+     40,
+     20
+    ],
+    "top": 130,
+    "rows": [
+     "a a+B a a a",
+     "b b b b+S b"
+    ]
+   },
+   {
+    "grid": "para",
+    "cell": [
+     100,
+     48,
+     24
+    ],
+    "top": 260,
+    "rows": [
+     "c c c c c c c",
+     "d d d+B d d d d",
+     "e e e e e e e",
+     "f f+S f f f f f",
+     "g g g g g g g"
+    ]
+   }
+  ],
+  "moving": [
+   {
+    "block": 0,
+    "row": 0,
+    "amp": 110,
+    "speed": 1.1
+   },
+   {
+    "block": 0,
+    "row": 1,
+    "amp": 110,
+    "speed": 1.1,
+    "phase": 3.14
+   }
+  ]
+ },
+ {
+  "id": "2-3",
+  "tier": 2,
+  "name": {
+   "en": "Sticky windows",
+   "ru": "Липкие окна"
+  },
+  "intro": {
+   "en": "New: the sticky paddle and the first harmful bonus — a narrow paddle",
+   "ru": "Новое: липкая ракетка и первый вредный бонус — узкая ракетка"
+  },
+  "par": 170,
+  "blocks": [
+   {
+    "grid": "hex",
+    "cell": [
+     100
+    ],
+    "top": 140,
+    "rows": [
+     "a . a . a . a",
+     ". b . b+G . b .",
+     "c . c . c . c",
+     ". d+N . d . d .",
+     "e . e . e+G . e",
+     ". f . f . f ."
+    ]
+   }
+  ]
+ },
+ {
+  "id": "2-4",
+  "tier": 2,
+  "name": {
+   "en": "Skyscraper",
+   "ru": "Небоскрёб"
+  },
+  "intro": {
+   "en": "New: shield bricks. Armour on the front and sides — hit them from behind, through the passages",
+   "ru": "Новое: кирпичи со щитом. Броня спереди и с боков — бейте сзади, через проходы"
+  },
+  "par": 240,
+  "blocks": [
+   {
+    "grid": "rect",
+    "cell": [
+     64,
+     46
+    ],
+    "top": 110,
+    "rows": [
+     "a a . s s s . a a",
+     "b b . b b b . b b",
+     "s c . c c c . c s",
+     "d d . d d+M d . d d",
+     "e e . e e e . e e",
+     "f f . f f f . f f",
+     "g g+L . g g g . g+L g",
+     "h h . h h h . h h",
+     "a a . a a a . a a",
+     "b b . b s b . b b",
+     "s c . c c c . c s",
+     "d d . d d+W d . d d",
+     "e e . e e e . e e",
+     "f f . f f f . f f"
+    ]
+   }
+  ]
+ },
+ {
+  "id": "2-5",
+  "tier": 2,
+  "name": {
+   "en": "Advance",
+   "ru": "Наступление"
+  },
+  "intro": {
+   "en": "New: the wall creeps down. Do not let it reach the red line",
+   "ru": "Новое: стена ползёт вниз. Не дайте ей дойти до красной линии"
+  },
+  "par": 200,
+  "blocks": [
+   {
+    "grid": "tri",
+    "cell": [
+     110
+    ],
+    "top": 120,
+    "rows": [
+     "a a a a a a a a a a a a a",
+     "b b b b b+W b b b b b b b b",
+     "c c c c c c c c c c c c c",
+     "d d d+N d d d d d d d+W d d d",
+     "e e e e e e e e e e e e e"
+    ]
+   }
+  ],
+  "descend": 30
+ },
+ {
+  "id": "2-6",
+  "tier": 2,
+  "name": {
+   "en": "Bumpers",
+   "ru": "Отражатели"
+  },
+  "intro": {
+   "en": "New: round bumpers on the field — they speed the ball up",
+   "ru": "Новое: круглые отражатели на поле — они разгоняют мяч"
+  },
+  "par": 170,
+  "blocks": [
+   {
+    "grid": "hex",
+    "cell": [
+     100
+    ],
+    "top": 130,
+    "rows": [
+     "a a a a a a a",
+     "b b+B b b b+G b .",
+     "c c c c c c c",
+     "d d d d+B d d ."
+    ]
+   }
+  ],
+  "objects": [
+   {
+    "type": "bumper",
+    "x": 200,
+    "y": 690,
+    "r": 40
+   },
+   {
+    "type": "bumper",
+    "x": 390,
+    "y": 610,
+    "r": 40
+   },
+   {
+    "type": "bumper",
+    "x": 580,
+    "y": 690,
+    "r": 40
+   }
+  ]
+ },
+ {
+  "id": "2-7",
+  "tier": 2,
+  "name": {
+   "en": "Neon rain",
+   "ru": "Неоновый ливень"
+  },
+  "intro": {
+   "en": "New: the time bomb ball and the harmful Fast ball. Keep the bomb near the wall!",
+   "ru": "Новое: шар — часовая бомба и вредный «Быстрый мяч». Держите бомбу у стены!"
+  },
+  "par": 200,
+  "blocks": [
+   {
+    "grid": "rhomb",
+    "cell": [
+     104,
+     72
+    ],
+    "top": 120,
+    "rows": [
+     "a a+M a a a+T a a",
+     "b b b+F b b b+L b",
+     "c+W c c s c c+B c",
+     "d d d d d+T d d"
+    ]
+   },
+   {
+    "grid": "tri",
+    "cell": [
+     110
+    ],
+    "top": 330,
+    "rows": [
+     "e e e e+S e e e e e e+G e e e",
+     "f f+N f f f f f f f f f f f",
+     "g g g g g g g+B g g g g g g"
+    ]
+   },
+   {
+    "grid": "rect",
+    "cell": [
+     84,
+     40
+    ],
+    "top": 640,
+    "rows": [
+     "h h+E h s h s h h+F h"
+    ]
+   }
+  ]
+ },
+ {
+  "id": "2-8",
+  "tier": 2,
+  "name": {
+   "en": "Bridge",
+   "ru": "Мост"
+  },
+  "intro": {
+   "en": "Tier finale: steel pillars, moving spans, shields and a creeping wall",
+   "ru": "Финал ступени: стальные опоры, движущиеся пролёты, щиты и ползущая стена"
+  },
+  "par": 260,
+  "blocks": [
+   {
+    "grid": "rhomb",
+    "cell": [
+     104,
+     72
+    ],
+    "top": 110,
+    "rows": [
+     "a a a+T a a a a",
+     "b b+M b b b b+L b",
+     "c c c c c c c",
+     "d d d+N d d d d",
+     "e e e e e+B e e"
+    ]
+   },
+   {
+    "grid": "rect",
+    "cell": [
+     108,
+     36
+    ],
+    "top": 380,
+    "rows": [
+     "f f+W f",
+     "s g s"
+    ]
+   },
+   {
+    "grid": "rect",
+    "cell": [
+     108,
+     52
+    ],
+    "top": 480,
+    "rows": [
+     "# h h s h h #",
+     "# a a+M a a+L a #",
+     "# b b b b b #"
+    ]
+   }
+  ],
+  "moving": [
+   {
+    "block": 1,
+    "row": 0,
+    "amp": 180,
+    "speed": 0.9
+   },
+   {
+    "block": 1,
+    "row": 1,
+    "amp": 180,
+    "speed": 0.9
+   }
+  ],
+  "descend": 40
+ }
+]

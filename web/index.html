@@ -19,6 +19,8 @@
 
   <aside class="left">
     <section class="panel scorebox" aria-labelledby="scoreLabel">
+      <p class="level-line"><b id="levelId">1-1</b> <span id="levelName"></span></p>
+      <p class="level-stars"><span id="levelStars" aria-hidden="true">☆☆☆</span> <span class="total"><span data-text="stars">Stars</span> <b id="starsTotal">0</b> / 72</span></p>
       <p class="label" id="scoreLabel" data-text="score">Score</p>
       <p class="score" id="score">0</p>
       <div class="tray-line">
@@ -36,6 +38,7 @@
       <button type="button" class="who" id="who" data-title="changePlayer"></button>
       <label class="auto"><input type="checkbox" id="autosave"> <span data-text="autosave">Autosave</span></label>
       <button type="button" class="small" id="save" data-text="save">Save</button>
+      <button type="button" class="small wide" id="mapOpen" data-text="map">Level map</button>
       <p class="saved" id="savedNote" role="status" aria-live="polite"></p>
     </section>
   </aside>
@@ -45,8 +48,18 @@
     <div class="message panel" id="message" role="status" aria-live="polite" hidden>
       <p class="message-title" id="messageTitle"></p>
       <p class="message-line" id="messageLine"></p>
-      <button type="button" class="go" id="again" data-text="again" hidden>Play again</button>
+      <p class="message-hint" id="messageHint"></p>
     </div>
+    <div class="screen panel" id="screen" role="dialog" aria-labelledby="screenTitle" hidden>
+      <p class="screen-title" id="screenTitle"></p>
+      <p class="screen-line" id="screenLine"></p>
+      <p class="screen-stars" id="screenStars" aria-hidden="true"></p>
+      <dl class="screen-rows" id="screenRows"></dl>
+      <p class="screen-note" id="screenNote"></p>
+      <button type="button" class="go" id="screenGo"></button>
+      <button type="button" class="later" id="screenMap" data-text="map">Level map</button>
+    </div>
+    <p class="toast" id="toast" role="status" aria-live="polite" hidden></p>
   </main>
 
   <aside class="right">
@@ -95,6 +108,7 @@
     <button type="button" class="go gold" id="continueBtn" hidden></button>
     <button type="submit" class="go" id="playBtn">New game</button>
     <button type="button" class="later" id="skipName">Play without a name</button>
+    <button type="button" class="later" id="whoMap" data-text="map">Level map</button>
     <p class="card-links"><a class="linkish" href="https://krinkerlabs.com" data-text="back"></a> · <a class="linkish" href="https://krinkerlabs.com/en/contact/?topic=breakwall" target="_blank" rel="noopener" data-text="bug"></a></p>
   </form>
 </div>
@@ -106,6 +120,15 @@
     <button type="button" class="go" id="leaveFirst"></button>
     <button type="button" class="later" id="leaveNow" data-text="leaveNow">Leave without saving</button>
     <button type="button" class="later" id="leaveStay" data-text="stay">Stay in the game</button>
+  </div>
+</div>
+
+<div class="modal" id="mapDialog" hidden role="dialog" aria-labelledby="mapTitle">
+  <div class="panel card map-card">
+    <div class="map-head"><h2 id="mapTitle" data-text="mapTitle">Level map</h2><button type="button" class="small" id="mapClose" data-text="close">Close</button></div>
+    <p data-text="mapHint"></p>
+    <p class="review-note" id="mapReview" data-text="mapReview" hidden></p>
+    <div id="mapTiers"></div>
   </div>
 </div>
 

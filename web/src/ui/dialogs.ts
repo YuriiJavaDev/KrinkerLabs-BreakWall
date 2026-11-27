@@ -16,6 +16,8 @@ export interface WhoHooks {
   onStart(kind: 'new' | 'continue'): void;
   /** The player list or name changed. */
   onPlayer(): void;
+  /** The player wants to pick a level on the map. */
+  onMap(): void;
 }
 
 /**
@@ -38,6 +40,7 @@ export class WhoDialog {
     this.input.addEventListener('input', () => { this.err.hidden = true; this.offerSave(); });
     this.cont.addEventListener('click', () => this.goOn());
     this.skip.addEventListener('click', () => this.withoutName());
+    byId('whoMap').addEventListener('click', () => this.toMap());
     this.root.addEventListener('keydown', (e) => { if (e.key === 'Escape' && this.mode === 'name') { e.preventDefault(); this.close(); } });
   }
 
@@ -47,6 +50,7 @@ export class WhoDialog {
     this.input.value = this.session.player;
     this.err.hidden = true;
     this.play.textContent = mode === 'start' ? this.t.play : this.t.keepPlaying;
+    byId('whoMap').hidden = mode !== 'start';
     this.skip.textContent = mode === 'start' ? this.t.playNoName : this.t.cancel;
     this.recent.replaceChildren(...recentPlayers(this.store).map((name) => Object.assign(document.createElement('option'), { value: name })));
     this.offerSave();
@@ -60,7 +64,7 @@ export class WhoDialog {
   private offerSave() {
     const save = this.mode === 'start' ? this.session.savedGame(cleanName(this.input.value)) : null;
     this.cont.hidden = !save;
-    if (save) this.cont.textContent = fill(this.t.continueSaved, { score: this.format(save.score), balls: save.tray });
+    if (save) this.cont.textContent = fill(this.t.continueSaved, { id: save.level, score: this.format(save.score), balls: save.tray });
   }
 
   /** The typed nickname, or null (with the reason shown) when it cannot be used. */
@@ -87,6 +91,14 @@ export class WhoDialog {
     const name = this.takeName();
     if (!name) return;
     this.session.setPlayer(name); this.hooks.onPlayer(); this.close(); this.hooks.onStart('continue');
+  }
+
+  /** The map from the first window: the typed nickname (or none) is taken first. */
+  private toMap() {
+    const name = this.takeName();
+    if (name === null) return;
+    if (name) this.session.setPlayer(name); else this.session.clearPlayer();
+    this.hooks.onPlayer(); this.close(); this.hooks.onMap();
   }
 
   private withoutName() {
