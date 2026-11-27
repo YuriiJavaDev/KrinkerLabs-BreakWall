@@ -1,100 +1,85 @@
 # KrinkerLabs™ BreakWall
 
-**Break the wall**: a paddle, a ball and a wall of bricks, on the violet star field of krinkerlabs.com. Free to play in the browser on a computer, a phone or a tablet. No ads, no registration.
+**Break the wall**: a paddle, a ball and 24 walls of bricks in three worlds. Free to play in the browser on a computer, a phone or a tablet. No ads, no registration.
 
-> Status: in development, browser version first (computer, phone, tablet). Stage 1 (the core) is done and reworked to the KrinkerLabs game layout: one level, a tray of balls, the top 10, saving, the windows to enter and leave. Not published yet. Desktop and Android builds come later.
+> Status: in development, browser version first. All 24 levels in three worlds are playable: Laboratory (1-1 … 1-8), Neon City (2-1 … 2-8), Reactor (3-1 … 3-8). Not published yet; desktop and Android builds come later.
 
 ## How to play
 
-- Move the paddle with the mouse, a finger, ← → (A D) or the left and right Shift keys.
-- While you play, the mouse is held by the paddle (the browser's pointer lock): the cursor is hidden and cannot leave the window. P or Space pauses and frees the mouse; the same key goes on and takes it again. Esc frees the mouse and pauses; Esc again leaves the game.
-- Enter or a click on the table launches the ball. M turns the sound on or off.
-- On a touch screen there is no keyboard, so a Pause button is shown there; a computer with a mouse does not show it.
-- Where the ball meets the paddle sets its angle: the centre sends it straight up, the edges up to 60° to the side. A moving paddle adds a little spin.
-- Every brick broken in a row without touching the paddle is worth one step more: 1 000, 2 000, 3 000 … up to 10 000.
-- The tray holds up to five balls; a game starts with three. Every minute a ball stays in play puts one more ball into the tray, while it has room. Up to three balls can be on the table at once (multiball); that does not take balls from the tray. Losing the last ball on the table takes one from the tray; an empty tray ends the game.
-- Break every brick to win.
+- Paddle: the mouse (held by the paddle while you play), a finger, ← → (A D) or the left and right Shift keys.
+- Enter or a click on the table: launch the ball, fire the laser, let go of a ball caught by the sticky paddle.
+- P or Space: pause (the mouse is free); the same key goes on. M: sound. Esc: free the mouse; Esc again: leave the game.
+- Where the ball meets the paddle sets its angle: the centre sends it straight up, the edges up to 60° to the side.
+- The tray holds up to five balls; a run starts with three. A ball that stays in play long enough adds one more (every 60, 75 or 90 s, by tier). Up to three balls on the table at once.
+- Clear a level to see **Well done!**, its stars and points, and go on to the next one. The score and the tray go with you.
 
-## Screen
+## What the player fights for
 
-The same layout as the other KrinkerLabs games:
+1. **Get further**: 24 levels, numbered 1-1 … 3-8, each tier its own world.
+2. **Stars**: ★ cleared, ★★ at most one ball lost, ★★★ no loss and faster than the level's par time. 72 in all.
+3. **The top 10**: the score of a run that starts at the first level of a tier.
+4. **Balls**: the tray goes from level to level, so a good game on easy levels saves balls for hard ones.
 
-- top: only the wordmark and the BETA mark;
-- left: the score, the tray of balls with the meter for the next one, the top 10 of this browser, the player, Autosave and Save;
-- middle: the table at the full height of the window, with thick rails in the site's colours that slowly flow along them; no stars on the table, they show only below the paddle;
-- right: the controls, the Pause and Sound buttons with what they do, and "Back to krinkerlabs.com" at the bottom;
-- bottom: the free-to-play, copyright and trademark lines.
+A lost game starts the same tier again from its first level. The level map shows stars and locks; any open level can be played again for stars.
 
-On a phone the top 10, the player and the help go into the menu; held sideways, the table stands in the middle at full height.
+## The levels
 
-## Saving
+| Tier | World | Levels | Paddle / ball | New things |
+| --- | --- | --- | --- | --- |
+| 1 Beginner | Laboratory: violet glass | 1-1 First wall · 1-2 Steps · 1-3 Windows · 1-4 Doubles · 1-5 Honeycomb · 1-6 Columns · 1-7 Mosaic · 1-8 Laboratory exam | 248 / 18 | bonus bricks, strong bricks with a number, hexagons, steel, triangles, explosive bricks, mixed shapes |
+| 2 Skilled | Neon City: chrome rails with neon, lit windows | 2-1 Evening block · 2-2 Overpass · 2-3 Sticky windows · 2-4 Skyscraper · 2-5 Advance · 2-6 Bumpers · 2-7 Neon rain · 2-8 Bridge | 210 / 16 | armoured and shape-changing bricks, moving rows, parallelograms, sticky paddle, laser, harmful bonuses, shield bricks, the creeping wall, bumpers, the time bomb |
+| 3 Pro | Reactor: hot metal and crystals | 3-1 Core ring · 3-2 Portals · 3-3 Regrowth · 3-4 Turbine · 3-5 Meteors · 3-6 Ghosts · 3-7 Chain reaction · 3-8 Heart of the reactor | 176 / 14 | comet ball, portals, regrowing bricks, turning bars, turned shields, the bottom shield, invisible bricks, the bomb, the core |
 
-At the start the game asks who is playing. A nickname names the saved game and goes into the top 10; one can also play without a name, then nothing is saved. A save keeps what the player had at the start of the current ball (score, tray, broken bricks), never the middle of a flight. With Autosave on, the game saves at every new ball. Leaving the game offers to save first, or to give a nickname to keep the game.
+Bricks: ordinary, strong (the number shows the hits left), steel (never breaks, not needed to clear), explosive, shape-changing, shield (armour in front and on the sides, breaks only from behind), regrowing (comes back unless broken in a run of three), invisible, the core.
+Bonuses, in marked bricks only: big paddle, slow, second ball, extra ball, laser, sticky paddle, narrow paddle and fast ball (harmful), multiball, comet, bottom shield, bomb, time bomb (a ball with a 12 s clock; its blast clears the wall around it and stuns the paddle if it is close).
 
-## Style
+**Review mode**: open the page with `#review` at the end of the address. Every level is open on the map, the N key clears a level at once, and nothing goes into the top 10.
 
-One style for all KrinkerLabs web games: the violet star field with a gravitational lens from [krinkerlabs.com](https://krinkerlabs.com), the wordmark `KRINKERLABS.BREAKWALL`, shadowed 2D panels and bevelled bricks. Strict Content Security Policy (no inline scripts or styles, nothing from other addresses) so that the game runs inside the site at `krinkerlabs.com/play/breakwall/`. Sounds are synthesised in code. Russian or English, by the language of the browser.
+## Style and originality
+
+Everything is drawn in code (Canvas) and every sound is synthesised in code: no pictures, sprites, samples or tunes from anywhere else, and no elements of other brick-breaking games. Strict Content Security Policy, so the game runs inside the site at `krinkerlabs.com/play/breakwall/`. Russian or English, by the language of the browser.
 
 ## Technology
 
-TypeScript, Canvas 2D, esbuild, one static build of three files (`app.js` is about 20 KB).
+TypeScript, Canvas 2D, esbuild; one static build of three files (`app.js` is about 115 KB).
 
-The simulation runs at a fixed 120 steps a second whatever the screen does, and the picture is drawn between the last two steps. The ball is checked along its whole path in every step (a moving circle against the bricks grown by its radius, with rounded corners), so even a very fast ball cannot pass through a brick, and a hit on a corner bounces off the corner. The ball never flies flatter than 70° from vertical, so it cannot get stuck between the side walls.
+The simulation runs at a fixed 120 steps a second. The ball is checked along its whole path against convex polygons (every face and corner), round bumpers and turning bars, so a fast ball never passes through a brick of any shape.
 
 | Folder | What it does |
 | --- | --- |
-| `web/src/physics` | the sweep of the ball against boxes, the earliest contact, the paddle bounce |
-| `web/src/rules` | sizes and speeds (`config.ts`), the game state, one step of the game, the tray and extra balls, points, the fixed-step loop |
-| `web/src/levels` | the level format and its checks |
-| `web/src/render` | the canvas drawing, the flowing rails and the star field |
-| `web/src/input` | mouse, touch and keyboard |
-| `web/src/audio` | the synthesised sounds |
-| `web/src/storage` | the browser storage (safe when refused), players, saved games |
-| `web/src/scores` | nicknames and the top 10 |
-| `web/src/app` | the session: the player, the game in progress, saving at each ball, the top 10 at the end |
-| `web/src/ui` | texts in both languages, score, tray and messages, the top 10 list, the windows, the phone layout |
-| `web/data/levels.json` | the levels |
-
-Physics, rules, saving, the session and the top 10 have no DOM, so all of them are checked by the unit tests.
+| `web/data/levels-1/2/3.json` | the 24 levels |
+| `web/src/levels` | the level format and its checks, grids (rectangles, hexagons, triangles, diamonds, parallelograms), shapes, tiers, the list of levels |
+| `web/src/physics` | the sweep of the ball against polygons and circles, the earliest contact, the paddle bounce |
+| `web/src/rules` | the game state and one step; bricks and damage, bonuses, the laser and the time bomb, the wall (moving rows, creeping, regrowing), the tray, points and stars |
+| `web/src/app` | the session: the run through the levels, progress, saving, the top 10 |
+| `web/src/storage`, `web/src/scores` | the browser storage, players, saved games, progress; nicknames and the top 10 |
+| `web/src/render` | the three worlds, bricks, rails, icons of the bonuses, particles, the star field |
+| `web/src/ui`, `web/src/input`, `web/src/audio` | panels, screens, the map, windows, texts; mouse, touch and keys; synthesised sounds |
 
 ## Development
 
 ```
 cd web
 npm install        # esbuild only
-npm test           # 113 checks: sweep geometry, bounce angles, fast ball, walls, tray, extra balls, multiball, points, levels, saves, top 10, a full level played through
+npm test           # 211 checks, including a test player who clears every one of the 24 levels
 npm run check      # TypeScript types
 npm run build      # web/dist: index.html, game.css, app.js
 ```
 
-Serve `web/dist` with any static server and open it.
+## Level format
 
-## Levels
-
-A level is a name and up to 18 rows of 7 cells:
+A level is one or more blocks, each on its own grid, plus things on the field:
 
 ```json
-{ "name": "First wall", "rows": ["aaaaaaa", "b.b.b.b"] }
+{ "id": "1-5", "tier": 1, "name": { "en": "Honeycomb", "ru": "Соты" }, "intro": { "en": "…", "ru": "…" }, "par": 150,
+  "blocks": [{ "grid": "hex", "cell": [100], "top": 140, "rows": [". a a+B a .", "b b m3 b b"] }],
+  "descend": 0, "moving": [], "objects": [{ "type": "bumper", "x": 390, "y": 600, "r": 40 }] }
 ```
 
-`.` is an empty cell, `a` to `h` an ordinary brick of colour 1 to 8. Strong, unbreakable, explosive and moving bricks come in stage 2 as new characters.
-
-## Stages
-
-| Stage | What | Result | Status |
-| --- | --- | --- | --- |
-| 1 | Core: field, paddle, ball, physics, ordinary bricks, lives, score, one level | Tests pass, the ball never passes through a brick, the level is playable with a mouse | done |
-| 2 | Strong, unbreakable, explosive, moving bricks; power-ups; combos | Rule tests pass, power-ups do not conflict | not started |
-| 3 | 20–30 levels, progress, top 10 | Difficulty grows smoothly, progress is kept | not started |
-| 4 | Look, effects, sounds, touch tuning | Checked on a real phone | not started |
-| 5 | On the site, beta | Works under the site's CSP | not started |
-
-The full specification is kept in the private repository of specifications of KrinkerLabs.
+Cells: `.` empty, `a`…`h` a colour (a digit after it is the strength), `#` steel, `x` explosive, `m3` shape-changing, `s` `s<` `s>` shield (weak side up, left, right), `r` regrowing, `i` invisible, `@20` the core; `+L` puts a bonus in a brick (W N S F B M E L G C D O T).
 
 ## License
 
-Free to play, all rights reserved: see [LICENSE](LICENSE). The game, its code, levels, design and marks may not be copied, redistributed, sold or reused. Videos and streams of the game are welcome.
+Free to play, all rights reserved: see [LICENSE](LICENSE). Videos and streams of the game are welcome.
 
-KrinkerLabs™ is a trademark of Yurii Pavlenko.
-
-Questions and bug reports: the contact form at https://krinkerlabs.com/en/contact/
+KrinkerLabs™ is a trademark of Yurii Pavlenko. Questions and bug reports: the contact form at https://krinkerlabs.com/en/contact/

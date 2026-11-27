@@ -72,9 +72,9 @@ export function drawRailGlow(g: CanvasRenderingContext2D) {
  * The colours around a centre, painted on a square of side `size`. Turning this square behind the rails makes the colours flow
  * along them. Browsers without conic gradients get the same colours across the square, without the flow.
  */
-export function drawSpectrum(g: CanvasRenderingContext2D, size: number) {
+export function drawSpectrum(g: CanvasRenderingContext2D, size: number, colours: readonly string[] = SPECTRUM) {
   const c = size / 2;
   const paint = typeof g.createConicGradient === 'function' ? g.createConicGradient(0, c, c) : g.createLinearGradient(0, 0, size, size);
-  SPECTRUM.forEach((colour, i) => paint.addColorStop(i / (SPECTRUM.length - 1), colour));
+  colours.forEach((colour, i) => paint.addColorStop(i / (colours.length - 1), colour));
   g.fillStyle = paint; g.fillRect(0, 0, size, size);
 }
